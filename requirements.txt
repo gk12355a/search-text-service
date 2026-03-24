@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+sentence-transformers
+numpy
+pydantic
+mysql-connector-python
+thefuzz
+python-Levenshtein
