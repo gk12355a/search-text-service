@@ -28,12 +28,17 @@ print("Loading model 'paraphrase-multilingual-MiniLM-L12-v2' (Tối ưu Tiếng 
 model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
 print("Model loaded successfully.")
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 DB_CONFIG = {
-    'host': '192.168.23.11',
-    'port': 6033,
-    'user': 'dtkien5',
-    'password': 'Kien2005@gym',
-    'database': 'db2026_03_25',
+    'host': os.getenv('DB_HOST', '192.168.23.11'),
+    'port': int(os.getenv('DB_PORT', 6033)),
+    'user': os.getenv('DB_USER', 'dtkien5'),
+    'password': os.getenv('DB_PASSWORD', 'Kien2005@gym'),
+    'database': os.getenv('DB_NAME', 'db2026_03_25'),
     'autocommit': True
 }
 

@@ -1,0 +1,107 @@
+<mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2000" pageHeight="800" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- Nodes -->
+    <mxCell id="A" value="Người dùng nhập&lt;br&gt;Văn bản truy vấn" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+      <mxGeometry x="20" y="200" width="140" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="B" value="API FastAPI&lt;br&gt;Tiếp nhận Request" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fe;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="200" y="200" width="140" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="C" value="Lấy dữ liệu thô từ&lt;br&gt;MySQL (ProxySQL)" style="shape=datastore;whiteSpace=wrap;html=1;fillColor=#dae8fe;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="380" y="190" width="140" height="80" as="geometry" />
+    </mxCell>
+
+    <mxCell id="D" value="Chuẩn hóa NLP:&lt;br&gt;Unicode NFD &amp;amp; Bỏ dấu" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+      <mxGeometry x="560" y="200" width="140" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Branch 1: Semantic -->
+    <mxCell id="F" value="Luồng Semantic&lt;br&gt;(Mã hóa ngữ nghĩa)" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+      <mxGeometry x="760" y="40" width="140" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="I" value="Mô hình Đa ngữ&lt;br&gt;MiniLM L12 (LLM)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+      <mxGeometry x="960" y="40" width="140" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="J" value="Trích xuất Vector:&lt;br&gt;Cosine Similarity" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+      <mxGeometry x="1160" y="40" width="140" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Branch 2: BM25 Keyword -->
+    <mxCell id="G" value="Luồng Từ Khóa&lt;br&gt;(Đối sánh BM25)" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+      <mxGeometry x="760" y="200" width="140" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="K" value="Xé nhỏ câu bằng&lt;br&gt;khoảng trắng" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+      <mxGeometry x="960" y="200" width="140" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="L" value="Toán học thống kê:&lt;br&gt;Calculated BM25 Matrix" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+      <mxGeometry x="1160" y="200" width="140" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Branch 3: BM25 Ngram -->
+    <mxCell id="H" value="Luồng Tri-Grams&lt;br&gt;(Chống lỗi đánh máy)" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+      <mxGeometry x="760" y="360" width="140" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="M" value="Phân rã chuỗi thành&lt;br&gt;nhóm 3 ký tự (N-grams)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+      <mxGeometry x="960" y="360" width="140" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="N" value="Toán học thống kê:&lt;br&gt;Calculated BM25 Matrix" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+      <mxGeometry x="1160" y="360" width="140" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Convergence -->
+    <mxCell id="O" value="Hợp nhất Hybrid:&lt;br&gt;[40% - 30% - 30%]&lt;br&gt;Min-Max Normalized" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+      <mxGeometry x="1400" y="190" width="160" height="80" as="geometry" />
+    </mxCell>
+
+    <mxCell id="P" value="Sắp xếp danh sách&lt;br&gt;theo Score giảm dần" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+      <mxGeometry x="1620" y="200" width="140" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="Q" value="Trả kết quả đề xuất&lt;br&gt;cho hệ thống UI" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+      <mxGeometry x="1820" y="200" width="140" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Edges -->
+    <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;endArrow=classic;rounded=0;strokeColor=#444444;" edge="1" parent="1" source="A" target="B"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;endArrow=classic;rounded=0;strokeColor=#444444;" edge="1" parent="1" source="B" target="C"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;endArrow=classic;rounded=0;strokeColor=#444444;" edge="1" parent="1" source="C" target="D"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+    <!-- Splitting from D to F, G, H -->
+    <mxCell id="eDF" value="" style="edgeStyle=orthogonalEdgeStyle;endArrow=classic;rounded=0;strokeColor=#444444;" edge="1" parent="1" source="D" target="F"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="eDG" value="" style="edgeStyle=orthogonalEdgeStyle;endArrow=classic;rounded=0;strokeColor=#444444;" edge="1" parent="1" source="D" target="G"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="eDH" value="" style="edgeStyle=orthogonalEdgeStyle;endArrow=classic;rounded=0;strokeColor=#444444;" edge="1" parent="1" source="D" target="H"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+    <!-- Semantic Flow -->
+    <mxCell id="eFI" value="" style="edgeStyle=orthogonalEdgeStyle;endArrow=classic;rounded=0;strokeColor=#444444;" edge="1" parent="1" source="F" target="I"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="eIJ" value="" style="edgeStyle=orthogonalEdgeStyle;endArrow=classic;rounded=0;strokeColor=#444444;" edge="1" parent="1" source="I" target="J"><mxGeometry relative="1" as="geometry" /></mxCell>
+    
+    <!-- BM25 Keyword Flow -->
+    <mxCell id="eGK" value="" style="edgeStyle=orthogonalEdgeStyle;endArrow=classic;rounded=0;strokeColor=#444444;" edge="1" parent="1" source="G" target="K"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="eKL" value="" style="edgeStyle=orthogonalEdgeStyle;endArrow=classic;rounded=0;strokeColor=#444444;" edge="1" parent="1" source="K" target="L"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+    <!-- BM25 Tri-grams Flow -->
+    <mxCell id="eHM" value="" style="edgeStyle=orthogonalEdgeStyle;endArrow=classic;rounded=0;strokeColor=#444444;" edge="1" parent="1" source="H" target="M"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="eMN" value="" style="edgeStyle=orthogonalEdgeStyle;endArrow=classic;rounded=0;strokeColor=#444444;" edge="1" parent="1" source="M" target="N"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+    <!-- Converging to O -->
+    <mxCell id="eJO" value=" + 40%" style="edgeStyle=orthogonalEdgeStyle;endArrow=classic;rounded=0;strokeColor=#444444;" edge="1" parent="1" source="J" target="O"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="eLO" value=" + 30%" style="edgeStyle=orthogonalEdgeStyle;endArrow=classic;rounded=0;strokeColor=#444444;" edge="1" parent="1" source="L" target="O"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="eNO" value=" + 30%" style="edgeStyle=orthogonalEdgeStyle;endArrow=classic;rounded=0;strokeColor=#444444;" edge="1" parent="1" source="N" target="O"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+    <!-- Ending Flow -->
+    <mxCell id="eOP" value="" style="edgeStyle=orthogonalEdgeStyle;endArrow=classic;rounded=0;strokeColor=#444444;" edge="1" parent="1" source="O" target="P"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="ePQ" value="" style="edgeStyle=orthogonalEdgeStyle;endArrow=classic;rounded=0;strokeColor=#444444;" edge="1" parent="1" source="P" target="Q"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+  </root>
+</mxGraphModel>

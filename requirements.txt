@@ -6,3 +6,4 @@ pydantic
 mysql-connector-python
 thefuzz
 python-Levenshtein
+python-dotenv
