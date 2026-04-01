@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
         - name: text-search
-          image: gk123a/search-text-service:latest # Thay bằng image thực tế của bạn
-          imagePullPolicy: IfNotPresent
+          image: gk123a/search-text-service:latest
+          imagePullPolicy: Always # Để Always để dễ test bản build mới
           ports:
             - containerPort: 8006
           envFrom:
@@ -32,7 +32,7 @@ spec:
               memory: 512Mi
             limits:
               cpu: 1000m
-              memory: 1Gi
+              memory: 2Gi # Nâng lên 2Gi để load mô hình NLP an toàn
 ---
 apiVersion: v1
 kind: Service
@@ -47,3 +47,24 @@ spec:
       port: 8006
       targetPort: 8006
   type: ClusterIP
+
+---
+# [BỔ SUNG] Ingress để Frontend gọi được qua domain text-meeting.co
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: text-search-ingress
+  namespace: meeting-system
+spec:
+  ingressClassName: haproxy
+  rules:
+    - host: text-meeting.co
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: text-search-svc
+                port:
+                  number: 8006
