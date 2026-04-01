@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: text-search
-          image: gk123a/search-text-service:latest # Thay bằng image thực tế của bạn
+          image: gk123a/search-text-service:v1.0.0-dev
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8006
