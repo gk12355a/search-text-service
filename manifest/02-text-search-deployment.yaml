@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: text-search-deployment
+  namespace: meeting-system
+  labels:
+    app: text-search
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: text-search
+  template:
+    metadata:
+      labels:
+        app: text-search
+    spec:
+      containers:
+        - name: text-search
+          image: gk123a/search-text-service:latest # Thay bằng image thực tế của bạn
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8006
+          envFrom:
+            - configMapRef:
+                name: text-search-config
+            - secretRef:
+                name: text-search-secrets
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: text-search-svc
+  namespace: meeting-system
+spec:
+  selector:
+    app: text-search
+  ports:
+    - protocol: TCP
+      port: 8006
+      targetPort: 8006
+  type: ClusterIP

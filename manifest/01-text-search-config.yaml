@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: text-search-config
+  namespace: meeting-system
+data:
+  DB_HOST: "192.168.23.11"
+  DB_PORT: "6033"
+  DB_NAME: "db2026_03_25"
+  DB_USER: "dtkien5"
+  TZ: "Asia/Ho_Chi_Minh"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: text-search-secrets
+  namespace: meeting-system
+type: Opaque
+stringData:
+  DB_PASSWORD: "Kien2005@gym"
